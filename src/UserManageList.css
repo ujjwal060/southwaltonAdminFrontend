@@ -1,0 +1,87 @@
+/* UserManageList.css */
+
+/* Style for loading text */
+.loading {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Style for no data text */
+  .no-data {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Style for input container */
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Style for input fields */
+  .input-container input[type="text"],
+  .input-container input[type="email"] {
+    flex: 1;
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #c1c43f;
+    border-radius: 4px;
+  }
+  
+  /* Style for Add User Manage button */
+  .input-container button {
+    background-color: #427f8f;
+    color: #8f4e7f;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for Add User Manage button */
+  .input-container button:hover {
+    background-color: #da90e0;
+  }
+  
+  /* Style for modal */
+  .modal-header {
+    border-bottom: none;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    padding: 20px;
+    border-top: none;
+  }
+  
+  /* Style for table */
+  .table {
+    margin-top: 20px;
+  }
+  
+  /* Style for table header cells */
+  .table thead th {
+    background-color: grey;
+    color: black;
+    border-color: white;
+  }
+  
+  /* Style for table rows */
+  .table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Style for table delete button */
+  .table tbody .delete-btn {
+    color: #dc3545;
+    cursor: pointer;
+  }
+  

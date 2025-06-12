@@ -1,0 +1,41 @@
+.static-content-manage {
+    font-family: Arial, sans-serif;
+    color: rgb(161, 36, 165);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .input-container {
+    margin-bottom: 15px;
+  }
+  
+  .input-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #2e7ea3;
+    border-radius: 4px;
+  }
+  
+  .button-container {
+    display: flex;
+  }
+  
+  .add-button, .update-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: hotpink;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-button:hover, .update-button:hover {
+    background-color: #21a371;
+  }
+  
