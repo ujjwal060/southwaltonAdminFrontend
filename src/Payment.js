@@ -147,7 +147,7 @@ const Payment = () => {
                       <CTableDataCell>
                         {(payment.paymentDetails.transactionDetails.amount / 100).toFixed(2)} USD
                       </CTableDataCell>
-
+                       <CTableDataCell>{payment.invoiceId.invoiceId || 'N/A'}</CTableDataCell>
                       <CTableDataCell>{payment.paymentDetails.paymentId || 'N/A'}</CTableDataCell>
                       <CTableDataCell>{payment.paymentDetails.transactionDetails.payment_method.billing_details.email || 'N/A'}</CTableDataCell> {/* Adjusted field for email */}
                       <CTableDataCell>{payment.paymentType || 'N/A'}</CTableDataCell>
