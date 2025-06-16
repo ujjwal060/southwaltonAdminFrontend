@@ -129,6 +129,7 @@ const Payment = () => {
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell>Payment Id</CTableHeaderCell>
+                    <CTableHeaderCell>Customer</CTableHeaderCell>
                     <CTableHeaderCell>Amount</CTableHeaderCell>
                     <CTableHeaderCell>Transaction ID</CTableHeaderCell>
                     <CTableHeaderCell>Email</CTableHeaderCell>
@@ -142,6 +143,7 @@ const Payment = () => {
                     <CTableRow key={payment._id}> {/* Use _id as unique key */}
                       <CTableDataCell>{payment._id}</CTableDataCell> {/* MongoDB's unique ID */}
                       {/* <CTableDataCell>{(payment.amount / 100).toFixed(2)} USD</CTableDataCell> */}
+                      <CTableDataCell>{payment.userName || 'N/A'}</CTableDataCell>
                       <CTableDataCell>
                         {(payment.paymentDetails.transactionDetails.amount / 100).toFixed(2)} USD
                       </CTableDataCell>
