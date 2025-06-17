@@ -131,6 +131,7 @@ const Payment = () => {
                     <CTableHeaderCell>Payment Id</CTableHeaderCell>
                     <CTableHeaderCell>Customer</CTableHeaderCell>
                     <CTableHeaderCell>Amount</CTableHeaderCell>
+                    <CTableHeaderCell>InvoiceId</CTableHeaderCell>
                     <CTableHeaderCell>Transaction ID</CTableHeaderCell>
                     <CTableHeaderCell>Email</CTableHeaderCell>
                     <CTableHeaderCell>Type</CTableHeaderCell>
