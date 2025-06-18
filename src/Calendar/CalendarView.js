@@ -23,26 +23,12 @@ const CalendarView = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [miniCalendarDate, setMiniCalendarDate] = useState(new Date());
-  const [view, setView] = useState('week');
+  const [view, setView] = useState('month');
   const [selectedDay, setSelectedDay] = useState(new Date());
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const sidebarRef = useRef(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
-  // Color palette
-  const colors = {
-    primary: '#4285F4',
-    secondary: '#34A853',
-    accent: '#EA4335',
-    background: '#F8F9FA',
-    text: '#202124',
-    lightText: '#5F6368',
-    border: '#DADCE0',
-    today: '#1A73E8',
-    event: '#E8F0FE',
-    eventBorder: '#4285F4'
-  };
 
   const fetchEvents = async () => {
     try {
@@ -93,12 +79,10 @@ const CalendarView = () => {
   const applyFilters = () => {
     let filtered = [...allEvents];
 
-    // Filter by selected tags
     if (selectedTags.length > 0) {
       filtered = filtered.filter(event => selectedTags.includes(event.tagNumber));
     }
 
-    // Filter by search term
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(event =>
@@ -109,7 +93,6 @@ const CalendarView = () => {
       );
     }
 
-    // Filter by status
     if (statusFilter !== 'all') {
       filtered = filtered.filter(event => event.status === statusFilter);
     }
@@ -140,7 +123,7 @@ const CalendarView = () => {
       setSelectedDay(addDays(selectedDay, direction));
     } else if (view === 'week') {
       setCurrentDate(addDays(currentDate, direction * 7));
-    } else { // month
+    } else {
       setCurrentDate(addMonths(currentDate, direction));
     }
     setMiniCalendarDate(currentDate);
@@ -151,7 +134,7 @@ const CalendarView = () => {
       setSelectedDay(addDays(selectedDay, direction));
     } else if (view === 'week') {
       setCurrentDate(addWeeks(currentDate, direction));
-    } else { // month
+    } else {
       setCurrentDate(addMonths(currentDate, direction));
     }
     setMiniCalendarDate(addMonths(miniCalendarDate, direction));
@@ -171,7 +154,7 @@ const CalendarView = () => {
       const start = startOfWeek(currentDate);
       const end = endOfWeek(currentDate);
       return eachDayOfInterval({ start, end });
-    } else { // month
+    } else {
       const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
       const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
       return eachDayOfInterval({ start: firstDay, end: lastDay });
@@ -188,19 +171,19 @@ const CalendarView = () => {
 
   const getEventColor = (status) => {
     switch (status) {
-      case 'confirmed': return '#E8F0FE';
-      case 'completed': return '#E6F4EA';
-      case 'cancelled': return '#FCE8E6';
-      default: return '#E8F0FE';
+      case 'confirmed': return 'var(--cui-info-light)';
+      case 'completed': return 'var(--cui-success-light)';
+      case 'cancelled': return 'var(--cui-danger-light)';
+      default: return 'var(--cui-info-light)';
     }
   };
 
   const getEventBorderColor = (status) => {
     switch (status) {
-      case 'confirmed': return '#4285F4';
-      case 'completed': return '#34A853';
-      case 'cancelled': return '#EA4335';
-      default: return '#4285F4';
+      case 'confirmed': return 'var(--cui-info)';
+      case 'completed': return 'var(--cui-success)';
+      case 'cancelled': return 'var(--cui-danger)';
+      default: return 'var(--cui-info)';
     }
   };
 
@@ -223,9 +206,9 @@ const CalendarView = () => {
     return (
       <div style={{
         width: '240px',
-        backgroundColor: 'white',
+        backgroundColor: 'var(--cui-body-bg)',
         borderRadius: '8px',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        boxShadow: 'var(--cui-box-shadow)',
         padding: '12px',
         marginRight: '16px'
       }}>
@@ -244,15 +227,15 @@ const CalendarView = () => {
               padding: '4px',
               borderRadius: '4px',
               ':hover': {
-                backgroundColor: '#F1F3F4'
+                backgroundColor: 'var(--cui-secondary-bg)'
               }
             }}
           >
-            <FaChevronLeft size={14} color={colors.lightText} />
+            <FaChevronLeft size={14} color="var(--cui-secondary-color)" />
           </button>
           <div style={{
             fontWeight: '500',
-            color: colors.text
+            color: 'var(--cui-body-color)'
           }}>
             {format(miniCalendarDate, 'MMMM yyyy')}
           </div>
@@ -265,11 +248,11 @@ const CalendarView = () => {
               padding: '4px',
               borderRadius: '4px',
               ':hover': {
-                backgroundColor: '#F1F3F4'
+                backgroundColor: 'var(--cui-secondary-bg)'
               }
             }}
           >
-            <FaChevronRight size={14} color={colors.lightText} />
+            <FaChevronRight size={14} color="var(--cui-secondary-color)" />
           </button>
         </div>
 
@@ -283,7 +266,7 @@ const CalendarView = () => {
             <div key={day} style={{
               textAlign: 'center',
               fontSize: '0.75rem',
-              color: colors.lightText,
+              color: 'var(--cui-secondary-color)',
               padding: '4px'
             }}>
               {day}
@@ -311,10 +294,10 @@ const CalendarView = () => {
                     height: '28px',
                     borderRadius: '50%',
                     border: 'none',
-                    background: isSelected ? colors.primary : 'transparent',
-                    color: isSelected ? 'white' :
-                      !isCurrentMonth ? colors.border :
-                        isToday(day) ? colors.primary : colors.text,
+                    background: isSelected ? 'var(--cui-primary)' : 'transparent',
+                    color: isSelected ? 'var(--cui-white)' :
+                      !isCurrentMonth ? 'var(--cui-border-color)' :
+                        isToday(day) ? 'var(--cui-primary)' : 'var(--cui-body-color)',
                     fontWeight: isSelected ? 'bold' :
                       isToday(day) ? 'bold' : 'normal',
                     cursor: 'pointer',
@@ -325,7 +308,7 @@ const CalendarView = () => {
                     fontSize: '0.85rem',
                     opacity: isCurrentMonth ? 1 : 0.5,
                     ':hover': {
-                      backgroundColor: isSelected ? colors.primary : '#F1F3F4'
+                      backgroundColor: isSelected ? 'var(--cui-primary)' : 'var(--cui-secondary-bg)'
                     }
                   }}
                 >
@@ -337,7 +320,7 @@ const CalendarView = () => {
                       width: '4px',
                       height: '4px',
                       borderRadius: '50%',
-                      backgroundColor: isSelected ? 'white' : colors.primary
+                      backgroundColor: isSelected ? 'var(--cui-white)' : 'var(--cui-primary)'
                     }} />
                   )}
                 </button>
@@ -363,7 +346,7 @@ const CalendarView = () => {
         <div style={{
           fontSize: '1.5rem',
           fontWeight: '500',
-          color: colors.text,
+          color: 'var(--cui-body-color)',
           marginBottom: '16px'
         }}>
           {format(selectedDay, 'EEEE, MMMM d, yyyy')}
@@ -376,7 +359,7 @@ const CalendarView = () => {
               justifyContent: 'center',
               alignItems: 'center',
               height: '100px',
-              color: colors.lightText
+              color: 'var(--cui-secondary-color)'
             }}>
               No bookings for this day
             </div>
@@ -391,8 +374,8 @@ const CalendarView = () => {
                   padding: '16px',
                   marginBottom: '12px',
                   cursor: 'pointer',
-                  color: colors.text,
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                  color: 'var(--cui-body-color)',
+                  boxShadow: 'var(--cui-box-shadow)',
                   transition: 'all 0.2s ease',
                   ':hover': {
                     transform: 'translateY(-2px)',
@@ -427,7 +410,7 @@ const CalendarView = () => {
                   <div>
                     <div style={{
                       fontSize: '0.8rem',
-                      color: colors.lightText,
+                      color: 'var(--cui-secondary-color)',
                       marginBottom: '4px'
                     }}>
                       Vehicle
@@ -440,7 +423,7 @@ const CalendarView = () => {
                   <div>
                     <div style={{
                       fontSize: '0.8rem',
-                      color: colors.lightText,
+                      color: 'var(--cui-secondary-color)',
                       marginBottom: '4px'
                     }}>
                       Pickup Location
@@ -466,15 +449,15 @@ const CalendarView = () => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        backgroundColor: colors.background,
+        backgroundColor: 'var(--cui-body-bg)',
         flex: 1
       }}>
         <div style={{
           display: 'flex',
-          borderBottom: `1px solid ${colors.border}`,
+          borderBottom: `1px solid var(--cui-border-color)`,
           position: 'sticky',
           top: 0,
-          backgroundColor: 'white',
+          backgroundColor: 'var(--cui-body-bg)',
           zIndex: 1
         }}>
           <div style={{ width: '60px' }}></div>
@@ -486,8 +469,8 @@ const CalendarView = () => {
                 textAlign: 'center',
                 padding: '12px 8px',
                 cursor: 'pointer',
-                backgroundColor: isToday(day) ? colors.today : 'transparent',
-                color: isToday(day) ? 'white' : colors.text,
+                backgroundColor: isToday(day) ? 'var(--cui-primary)' : 'transparent',
+                color: isToday(day) ? 'var(--cui-white)' : 'var(--cui-body-color)',
                 transition: 'all 0.2s ease'
               }}
               onClick={() => {
@@ -520,10 +503,10 @@ const CalendarView = () => {
                 key={day.getTime()}
                 style={{
                   flex: 1,
-                  borderRight: `1px solid ${colors.border}`,
+                  borderRight: `1px solid var(--cui-border-color)`,
                   position: 'relative',
                   minHeight: '100px',
-                  backgroundColor: 'white',
+                  backgroundColor: 'var(--cui-body-bg)',
                   padding: '8px'
                 }}
               >
@@ -541,7 +524,7 @@ const CalendarView = () => {
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
                       fontSize: '0.85rem',
-                      color: colors.text,
+                      color: 'var(--cui-body-color)',
                       transition: 'all 0.2s ease',
                       ':hover': {
                         transform: 'translateX(2px)'
@@ -564,7 +547,6 @@ const CalendarView = () => {
     const days = getDaysForView();
     const weeks = [];
 
-    // Split days into weeks
     for (let i = 0; i < days.length; i += 7) {
       weeks.push(days.slice(i, i + 7));
     }
@@ -574,15 +556,15 @@ const CalendarView = () => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        backgroundColor: 'white',
+        backgroundColor: 'var(--cui-body-bg)',
         flex: 1
       }}>
         <div style={{
           display: 'flex',
-          borderBottom: `1px solid ${colors.border}`,
+          borderBottom: `1px solid var(--cui-border-color)`,
           position: 'sticky',
           top: 0,
-          backgroundColor: 'white',
+          backgroundColor: 'var(--cui-body-bg)',
           zIndex: 1
         }}>
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
@@ -594,7 +576,7 @@ const CalendarView = () => {
                 padding: '12px 8px',
                 fontSize: '0.85rem',
                 fontWeight: '500',
-                color: colors.lightText,
+                color: 'var(--cui-secondary-color)',
                 textTransform: 'uppercase'
               }}
             >
@@ -610,7 +592,7 @@ const CalendarView = () => {
               style={{
                 display: 'flex',
                 minHeight: '120px',
-                borderBottom: `1px solid ${colors.border}`
+                borderBottom: `1px solid var(--cui-border-color)`
               }}
             >
               {week.map(day => {
@@ -622,14 +604,14 @@ const CalendarView = () => {
                     key={day.getTime()}
                     style={{
                       flex: 1,
-                      borderRight: `1px solid ${colors.border}`,
+                      borderRight: `1px solid var(--cui-border-color)`,
                       padding: '4px',
-                      backgroundColor: isToday(day) ? '#E8F0FE' : 'white',
+                      backgroundColor: isToday(day) ? 'var(--cui-info-light)' : 'var(--cui-body-bg)',
                       opacity: isCurrentMonth ? 1 : 0.5,
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                       ':hover': {
-                        backgroundColor: '#F1F3F4'
+                        backgroundColor: 'var(--cui-secondary-bg)'
                       }
                     }}
                     onClick={() => {
@@ -641,7 +623,7 @@ const CalendarView = () => {
                       textAlign: 'right',
                       padding: '4px 8px',
                       fontWeight: isToday(day) ? 'bold' : 'normal',
-                      color: isToday(day) ? colors.today : colors.text
+                      color: isToday(day) ? 'var(--cui-primary)' : 'var(--cui-body-color)'
                     }}>
                       {format(day, 'd')}
                     </div>
@@ -660,7 +642,7 @@ const CalendarView = () => {
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
                             fontSize: '0.75rem',
-                            color: colors.text,
+                            color: 'var(--cui-body-color)',
                             transition: 'all 0.2s ease',
                             ':hover': {
                               transform: 'translateX(2px)'
@@ -677,7 +659,7 @@ const CalendarView = () => {
                       {dayEvents.length > 3 && (
                         <div style={{
                           fontSize: '0.75rem',
-                          color: colors.lightText,
+                          color: 'var(--cui-secondary-color)',
                           textAlign: 'center',
                           padding: '2px'
                         }}>
@@ -705,28 +687,27 @@ const CalendarView = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
-        backgroundColor: colors.background
+        backgroundColor: 'var(--cui-body-bg)'
       }}>
         <div style={{
-          padding: '24px',
-          backgroundColor: 'white',
+          padding: '24px', 
+          backgroundColor: 'var(--cui-body-bg)',
           borderRadius: '8px',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+          boxShadow: 'var(--cui-box-shadow)',
           textAlign: 'center'
         }}>
           <div style={{
             width: '50px',
             height: '50px',
-            border: `4px solid ${colors.border}`,
-            borderTopColor: colors.primary,
+            border: `4px solid var(--cui-border-color)`,
+            borderTopColor: 'var(--cui-primary)',
             borderRadius: '50%',
             animation: 'spin 1s linear infinite',
             margin: '0 auto 16px'
           }}></div>
           <div style={{
             fontSize: '1.1rem',
-            color: colors.text,
+            color: 'var(--cui-body-color)',
             fontWeight: '500'
           }}>
             Loading Calendar...
@@ -738,38 +719,37 @@ const CalendarView = () => {
 
   return (
     <div style={{
-      height: '100vh',
+      height: 'auto',
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: colors.background
+      backgroundColor: 'var(--cui-body-bg)'
     }}>
-      {/* Header with navigation */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '12px 24px',
-        borderBottom: `1px solid ${colors.border}`,
-        backgroundColor: 'white',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+        borderBottom: `1px solid var(--cui-border-color)`,
+        backgroundColor: 'var(--cui-body-bg)',
+        boxShadow: 'var(--cui-box-shadow)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h2 style={{
             margin: 0,
-            color: colors.text,
+            color: 'var(--cui-body-color)',
             fontSize: '1.5rem',
             fontWeight: '500',
             display: 'flex',
             alignItems: 'center'
           }}>
-            <FaCar style={{ marginRight: '12px', color: colors.primary }} />
+            <FaCar style={{ marginRight: '12px', color: 'var(--cui-primary)' }} />
             Booking Calendar
           </h2>
           <div style={{
             marginLeft: '24px',
             display: 'flex',
             gap: '4px',
-            backgroundColor: '#F1F3F4',
+            backgroundColor: 'var(--cui-secondary-bg)',
             borderRadius: '8px',
             padding: '4px'
           }}>
@@ -777,15 +757,15 @@ const CalendarView = () => {
               onClick={() => setView('day')}
               style={{
                 padding: '6px 12px',
-                backgroundColor: view === 'day' ? 'white' : 'transparent',
-                color: view === 'day' ? colors.primary : colors.lightText,
+                backgroundColor: view === 'day' ? 'var(--cui-body-bg)' : 'transparent',
+                color: view === 'day' ? 'var(--cui-primary)' : 'var(--cui-secondary-color)',
                 border: 'none',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                boxShadow: view === 'day' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                boxShadow: view === 'day' ? 'var(--cui-box-shadow)' : 'none',
                 fontWeight: view === 'day' ? '500' : 'normal'
               }}
             >
@@ -796,15 +776,15 @@ const CalendarView = () => {
               onClick={() => setView('week')}
               style={{
                 padding: '6px 12px',
-                backgroundColor: view === 'week' ? 'white' : 'transparent',
-                color: view === 'week' ? colors.primary : colors.lightText,
+                backgroundColor: view === 'week' ? 'var(--cui-body-bg)' : 'transparent',
+                color: view === 'week' ? 'var(--cui-primary)' : 'var(--cui-secondary-color)',
                 border: 'none',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                boxShadow: view === 'week' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                boxShadow: view === 'week' ? 'var(--cui-box-shadow)' : 'none',
                 fontWeight: view === 'week' ? '500' : 'normal'
               }}
             >
@@ -815,15 +795,15 @@ const CalendarView = () => {
               onClick={() => setView('month')}
               style={{
                 padding: '6px 12px',
-                backgroundColor: view === 'month' ? 'white' : 'transparent',
-                color: view === 'month' ? colors.primary : colors.lightText,
+                backgroundColor: view === 'month' ? 'var(--cui-body-bg)' : 'transparent',
+                color: view === 'month' ? 'var(--cui-primary)' : 'var(--cui-secondary-color)',
                 border: 'none',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                boxShadow: view === 'month' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                boxShadow: view === 'month' ? 'var(--cui-box-shadow)' : 'none',
                 fontWeight: view === 'month' ? '500' : 'normal'
               }}
             >
@@ -836,7 +816,7 @@ const CalendarView = () => {
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            backgroundColor: '#F1F3F4',
+            backgroundColor: 'var(--cui-secondary-bg)',
             borderRadius: '20px',
             padding: '6px 12px',
             gap: '8px'
@@ -854,8 +834,8 @@ const CalendarView = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: colors.lightText,
-                ':hover': { backgroundColor: '#E0E0E0' }
+                color: 'var(--cui-secondary-color)',
+                ':hover': { backgroundColor: 'var(--cui-hover-bg)' }
               }}
             >
               <FaChevronLeft size={14} />
@@ -863,7 +843,7 @@ const CalendarView = () => {
             <div style={{
               fontSize: '1.1rem',
               fontWeight: '500',
-              color: colors.text,
+              color: 'var(--cui-body-color)',
               minWidth: '200px',
               textAlign: 'center'
             }}>
@@ -884,8 +864,8 @@ const CalendarView = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: colors.lightText,
-                ':hover': { backgroundColor: '#E0E0E0' }
+                color: 'var(--cui-secondary-color)',
+                ':hover': { backgroundColor: 'var(--cui-hover-bg)' }
               }}
             >
               <FaChevronRight size={14} />
@@ -899,16 +879,16 @@ const CalendarView = () => {
             }}
             style={{
               padding: '8px 16px',
-              backgroundColor: '#F1F3F4',
+              backgroundColor: 'var(--cui-secondary-bg)',
               border: 'none',
               borderRadius: '20px',
               cursor: 'pointer',
-              color: colors.text,
+              color: 'var(--cui-body-color)',
               fontWeight: '500',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              ':hover': { backgroundColor: '#E0E0E0' }
+              ':hover': { backgroundColor: 'var(--cui-hover-bg)' }
             }}
           >
             <MdToday size={16} />
@@ -918,7 +898,7 @@ const CalendarView = () => {
             onClick={toggleSidebar}
             style={{
               padding: '8px',
-              backgroundColor: '#F1F3F4',
+              backgroundColor: 'var(--cui-secondary-bg)',
               border: 'none',
               borderRadius: '50%',
               width: '40px',
@@ -927,8 +907,8 @@ const CalendarView = () => {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: colors.text,
-              ':hover': { backgroundColor: '#E0E0E0' }
+              color: 'var(--cui-body-color)',
+              ':hover': { backgroundColor: 'var(--cui-hover-bg)' }
             }}
           >
             <FaFilter size={16} />
@@ -937,15 +917,14 @@ const CalendarView = () => {
       </div>
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Sidebar with filters */}
         <div
           ref={sidebarRef}
           style={{
             width: sidebarCollapsed ? '0' : '300px',
-            background: "white",
-            padding: sidebarCollapsed ? '0' : "20px",
-            borderRight: `1px solid ${colors.border}`,
-            color: colors.text,
+            background: 'var(--cui-body-bg)',
+            padding: sidebarCollapsed ? '0' : '20px',
+            borderRight: `1px solid var(--cui-border-color)`,
+            color: 'var(--cui-body-color)',
             transition: 'all 0.3s ease',
             overflow: 'hidden',
             flexShrink: 0
@@ -959,7 +938,7 @@ const CalendarView = () => {
                   marginBottom: '8px',
                   fontSize: '0.85rem',
                   fontWeight: '500',
-                  color: colors.lightText
+                  color: 'var(--cui-secondary-color)'
                 }}>
                   Search Bookings
                 </label>
@@ -971,26 +950,26 @@ const CalendarView = () => {
                   style={{
                     width: '100%',
                     padding: '8px 12px',
-                    border: `1px solid ${colors.border}`,
+                    border: `1px solid var(--cui-border-color)`,
                     borderRadius: '6px',
                     fontSize: '0.9rem',
+                    backgroundColor: 'var(--cui-body-bg)',
+                    color: 'var(--cui-body-color)',
                     ':focus': {
                       outline: 'none',
-                      borderColor: colors.primary,
-                      boxShadow: `0 0 0 2px ${colors.primary}20`
+                      borderColor: 'var(--cui-primary)',
+                      boxShadow: `0 0 0 2px var(--cui-primary-light)`
                     }
                   }}
                 />
               </div>
-              {/* Mini Calendar */}
               <div style={{
                 width: 'auto',
-                borderRight: `1px solid ${colors.border}`,
+                borderRight: `1px solid var(--cui-border-color)`,
                 overflowY: 'auto'
               }}>
                 {renderMiniCalendar()}
               </div>
-
 
               <div style={{ marginBottom: '20px' }}>
                 <label style={{
@@ -998,7 +977,7 @@ const CalendarView = () => {
                   marginBottom: '8px',
                   fontSize: '0.85rem',
                   fontWeight: '500',
-                  color: colors.lightText
+                  color: 'var(--cui-secondary-color)'
                 }}>
                   Booking Status
                 </label>
@@ -1006,7 +985,10 @@ const CalendarView = () => {
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
                   style={{
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    backgroundColor: 'var(--cui-body-bg)',
+                    color: 'var(--cui-body-color)',
+                    borderColor: 'var(--cui-border-color)'
                   }}
                 >
                   <option value="all">All Statuses</option>
@@ -1022,7 +1004,7 @@ const CalendarView = () => {
                   marginBottom: '8px',
                   fontSize: '0.85rem',
                   fontWeight: '500',
-                  color: colors.lightText
+                  color: 'var(--cui-secondary-color)'
                 }}>
                   Vehicle Tag Numbers
                 </label>
@@ -1037,16 +1019,16 @@ const CalendarView = () => {
                   <div
                     style={{
                       padding: '8px 12px',
-                      background: selectedTags.length === 0 ? '#E8F0FE' : '#F8F9FA',
+                      background: selectedTags.length === 0 ? 'var(--cui-info-light)' : 'var(--cui-secondary-bg)',
                       borderRadius: '6px',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
                       transition: 'all 0.2s ease',
-                      border: selectedTags.length === 0 ? `1px solid ${colors.primary}` : `1px solid ${colors.border}`,
+                      border: selectedTags.length === 0 ? `1px solid var(--cui-primary)` : `1px solid var(--cui-border-color)`,
                       ':hover': {
-                        backgroundColor: '#F1F3F4'
+                        backgroundColor: 'var(--cui-hover-bg)'
                       }
                     }}
                     onClick={() => setSelectedTags([])}
@@ -1055,12 +1037,12 @@ const CalendarView = () => {
                       width: '16px',
                       height: '16px',
                       borderRadius: '4px',
-                      border: selectedTags.length === 0 ? 'none' : `1px solid ${colors.border}`,
-                      backgroundColor: selectedTags.length === 0 ? colors.primary : 'transparent',
+                      border: selectedTags.length === 0 ? 'none' : `1px solid var(--cui-border-color)`,
+                      backgroundColor: selectedTags.length === 0 ? 'var(--cui-primary)' : 'transparent',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'white',
+                      color: 'var(--cui-white)',
                       fontSize: '12px'
                     }}>
                       {selectedTags.length === 0 && '✓'}
@@ -1073,16 +1055,16 @@ const CalendarView = () => {
                       key={index}
                       style={{
                         padding: '8px 12px',
-                        background: selectedTags.includes(vehicle.tagNumber) ? '#E8F0FE' : '#F8F9FA',
+                        background: selectedTags.includes(vehicle.tagNumber) ? 'var(--cui-info-light)' : 'var(--cui-secondary-bg)',
                         borderRadius: '6px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
                         transition: 'all 0.2s ease',
-                        border: selectedTags.includes(vehicle.tagNumber) ? `1px solid ${colors.primary}` : `1px solid ${colors.border}`,
+                        border: selectedTags.includes(vehicle.tagNumber) ? `1px solid var(--cui-primary)` : `1px solid var(--cui-border-color)`,
                         ':hover': {
-                          backgroundColor: '#F1F3F4'
+                          backgroundColor: 'var(--cui-hover-bg)'
                         }
                       }}
                       onClick={() => handleTagToggle(vehicle.tagNumber)}
@@ -1091,12 +1073,12 @@ const CalendarView = () => {
                         width: '16px',
                         height: '16px',
                         borderRadius: '4px',
-                        border: selectedTags.includes(vehicle.tagNumber) ? 'none' : `1px solid ${colors.border}`,
-                        backgroundColor: selectedTags.includes(vehicle.tagNumber) ? colors.primary : 'transparent',
+                        border: selectedTags.includes(vehicle.tagNumber) ? 'none' : `1px solid var(--cui-border-color)`,
+                        backgroundColor: selectedTags.includes(vehicle.tagNumber) ? 'var(--cui-primary)' : 'transparent',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: 'white',
+                        color: 'var(--cui-white)',
                         fontSize: '12px'
                       }}>
                         {selectedTags.includes(vehicle.tagNumber) && '✓'}
@@ -1105,7 +1087,7 @@ const CalendarView = () => {
                       <span style={{
                         marginLeft: 'auto',
                         fontSize: '0.8rem',
-                        color: colors.lightText
+                        color: 'var(--cui-secondary-color)'
                       }}>
                         {vehicle.vname}
                       </span>
@@ -1117,17 +1099,13 @@ const CalendarView = () => {
           )}
         </div>
 
-        {/* Main Content Area */}
         <div style={{
           display: 'flex',
           flex: 1,
           overflow: 'hidden',
-          backgroundColor: 'white',
+          backgroundColor: 'var(--cui-body-bg)',
           transition: 'all 0.3s ease'
         }}>
-
-
-          {/* Main Calendar Content */}
           <div style={{
             flex: 1,
             overflow: 'hidden',
@@ -1139,7 +1117,6 @@ const CalendarView = () => {
         </div>
       </div>
 
-      {/* Event Details Modal */}
       <CModal
         visible={modalOpen}
         onClose={handleModalClose}
@@ -1148,7 +1125,7 @@ const CalendarView = () => {
       >
         <CModalHeader closeButton>
           <CModalTitle style={{
-            color: colors.text,
+            color: 'var(--cui-body-color)',
             display: 'flex',
             alignItems: 'center',
             gap: '8px'
@@ -1160,10 +1137,9 @@ const CalendarView = () => {
         <CModalBody>
           {selectedEvent && (
             <CForm>
-              {/* Customer Details */}
               <h5 className="mb-3" style={{
                 fontWeight: '600',
-                color: colors.primary,
+                color: 'var(--cui-primary)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px'
@@ -1171,89 +1147,88 @@ const CalendarView = () => {
                 <span style={{
                   width: '24px',
                   height: '24px',
-                  backgroundColor: `${colors.primary}20`,
+                  backgroundColor: 'var(--cui-primary-light)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <FaCar size={12} color={colors.primary} />
+                  <FaCar size={12} color="var(--cui-primary)" />
                 </span>
                 Customer Details
               </h5>
               <CRow className="mb-4">
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Name</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Name</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.title || 'N/A'}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Email</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Email</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.email || 'N/A'}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Pickup Date</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Pickup Date</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {format(selectedEvent.start, 'MMMM d, yyyy')}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Return Date</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Return Date</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {format(selectedEvent.end, 'MMMM d, yyyy')}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Pickup Location</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Pickup Location</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.pickup || 'N/A'}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Return Location</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Return Location</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.drop || 'N/A'}
                   </div>
                 </CCol>
               </CRow>
 
-              {/* Vehicle Details */}
               <h5 className="mb-3" style={{
                 fontWeight: '600',
-                color: colors.primary,
+                color: 'var(--cui-primary)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px'
@@ -1261,55 +1236,55 @@ const CalendarView = () => {
                 <span style={{
                   width: '24px',
                   height: '24px',
-                  backgroundColor: `${colors.primary}20`,
+                  backgroundColor: 'var(--cui-primary-light)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <FaCar size={12} color={colors.primary} />
+                  <FaCar size={12} color="var(--cui-primary)" />
                 </span>
                 Vehicle Details
               </h5>
               <CRow className="mb-4">
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Vehicle Name</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Vehicle Name</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.vname || 'N/A'}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Tag Number</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Tag Number</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.tagNumber || 'N/A'}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Passenger Capacity</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Passenger Capacity</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
-                    borderLeft: `3px solid ${colors.primary}`
+                    borderLeft: `3px solid var(--cui-primary)`
                   }}>
                     {selectedEvent.passenger || 'N/A'}
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: colors.lightText }}>Booking Status</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Booking Status</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
-                    backgroundColor: '#F8F9FA',
+                    backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
                     borderLeft: `3px solid ${getEventBorderColor(selectedEvent.status)}`,
                     display: 'flex',
@@ -1338,12 +1313,7 @@ const CalendarView = () => {
           >
             Close
           </CButton>
-          <CButton
-            color="primary"
-            style={{ borderRadius: '20px', padding: '8px 16px' }}
-          >
-            Edit Booking
-          </CButton>
+          
         </CModalFooter>
       </CModal>
     </div>
