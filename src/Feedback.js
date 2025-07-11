@@ -28,7 +28,7 @@ const Feedback = () => {
   const fetchFeedbackData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://18.209.91.97:8132/api/request/', {
+      const response = await axios.get('http://52.20.55.193:8132/api/request/', {
         params: {
           page: currentPage,
           limit: limit,
@@ -60,7 +60,7 @@ const Feedback = () => {
   };
   const handleDeleteFeedback = async (id) => {
     try {
-      await axios.delete(`http://18.209.91.97:8132/api/request/${id}`);
+      await axios.delete(`http://52.20.55.193:8132/api/request/${id}`);
       setFeedbackData(feedbackData.filter((feedback) => feedback._id !== id));
       window.alert('Feedback successfully deleted');
     } catch (error) {

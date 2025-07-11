@@ -32,7 +32,7 @@ const Sign = () => {
   const fetchSignatureData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://18.209.91.97:8132/api/sign/get-sign', {
+      const response = await axios.get('http://52.20.55.193:8132/api/sign/get-sign', {
         params: { page, limit, search },
       });
 
@@ -68,7 +68,7 @@ const Sign = () => {
       const confirmDelete = window.confirm('Are you sure you want to delete this signature?');
       if (!confirmDelete) return;
 
-      await axios.delete(`http://18.209.91.97:8132/api/sign/${id}`); // Make delete API call
+      await axios.delete(`http://52.20.55.193:8132/api/sign/${id}`); // Make delete API call
       setSignatureData((prevData) => prevData.filter((sig) => sig._id !== id)); // Update state
     } catch (error) {
       console.error('Error deleting signature:', error);
