@@ -26,7 +26,7 @@ const Season = () => {
 
   const fetchSeasons = async () => {
     try {
-      const response = await axios.get('http://18.209.91.97:8132/api/seasons');
+      const response = await axios.get('http://52.20.55.193:8132/api/seasons');
       const data = response.data;
       // Assuming there's only one season document in the collection, or you will need to adjust based on your actual data structure
       setSeasonData(data);
@@ -42,11 +42,11 @@ const Season = () => {
     try {
       if (editMode) {
         await axios.put(
-          `http://18.209.91.97:8132/api/seasons/${seasonId}/${editEntryId}`,
+          `http://52.20.55.193:8132/api/seasons/${seasonId}/${editEntryId}`,
           seasonEntry
         );
       } else {
-        await axios.post(`http://18.209.91.97:8132/api/seasons/${seasonId}/add-entry`, seasonEntry);
+        await axios.post(`http://52.20.55.193:8132/api/seasons/${seasonId}/add-entry`, seasonEntry);
       }
       fetchSeasons();  
       setModalVisible(false);
@@ -73,7 +73,7 @@ const Season = () => {
   const handleDeleteSeason = async (seasonType, entryId) => {
     try {
      
-      await axios.delete(`http://18.209.91.97:8132/api/seasons/${seasonId}/${seasonType}/${entryId}`);
+      await axios.delete(`http://52.20.55.193:8132/api/seasons/${seasonId}/${seasonType}/${entryId}`);
       fetchSeasons();
       window.alert('Season Entry has been deleted successfully!')
     } catch (error) {

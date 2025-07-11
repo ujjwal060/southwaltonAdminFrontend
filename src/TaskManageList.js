@@ -43,7 +43,7 @@ const TaskManageList = () => {
 
   const fetchTaskData = async () => {
     try {
-      const response = await axios.get('http://18.209.91.97:8132/api/task');
+      const response = await axios.get('http://52.20.55.193:8132/api/task');
       setTaskData(response.data);
       setLoading(false);
     } catch (error) {
@@ -59,7 +59,7 @@ const TaskManageList = () => {
   const handleAddTask = async () => {
     try {
       const response = await axios.post(
-        'http://18.209.91.97:8132/api/task/add',
+        'http://52.20.55.193:8132/api/task/add',
         {
           driverName,
           customerName,
@@ -94,7 +94,7 @@ const TaskManageList = () => {
   const handleUpdateTask = async () => {
     try {
       const response = await axios.put(
-        `http://18.209.91.97:8132/api/task/${currentTaskId}`,
+        `http://52.20.55.193:8132/api/task/${currentTaskId}`,
         {
           driverName,
           customerName,
@@ -124,7 +124,7 @@ const TaskManageList = () => {
 
   const handleDeleteTask = async (id) => {
     try {
-      await axios.delete(`http://18.209.91.97:8132/api/task/${id}`);
+      await axios.delete(`http://52.20.55.193:8132/api/task/${id}`);
       setTaskData(taskData.filter((task) => task._id !== id));
       window.alert('Task successfully deleted');
     } catch (error) {

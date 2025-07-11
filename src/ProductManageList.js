@@ -38,7 +38,7 @@ const ProductManageList = () => {
 
   const fetchProductManageData = async () => {
     try {
-      const response = await axios.get('http://18.209.91.97:8132/api/ProductManageData')
+      const response = await axios.get('http://52.20.55.193:8132/api/ProductManageData')
       setProductManageData(response.data)
       setLoading(false)
     } catch (error) {
@@ -64,7 +64,7 @@ const ProductManageList = () => {
 
     try {
       const response = await axios.post(
-        'http://18.209.91.97:8132/api/ProductManageData/pname',
+        'http://52.20.55.193:8132/api/ProductManageData/pname',
         formData,
         {
           headers: {
@@ -86,7 +86,7 @@ const ProductManageList = () => {
 
   const handleDeleteProductManage = async (id) => {
     try {
-      await axios.delete(`http://18.209.91.97:8132/api/ProductManageData/${id}`)
+      await axios.delete(`http://52.20.55.193:8132/api/ProductManageData/${id}`)
       setProductManageData(productManageData.filter((product) => product._id !== id))
     } catch (error) {
       console.error('Error deleting product manage:', error)
@@ -117,7 +117,7 @@ const ProductManageList = () => {
   
     try {
       const response = await axios.put(
-        `http://18.209.91.97:8132/api/ProductManageData/${currentProductId}`,
+        `http://52.20.55.193:8132/api/ProductManageData/${currentProductId}`,
         formData,
         {
           headers: {
@@ -184,7 +184,7 @@ const ProductManageList = () => {
                     <CTableDataCell>
                       {product.image && (
                         <img
-                          src={`http://18.209.91.97:8132/uploads/${product.image}`}
+                          src={`http://52.20.55.193:8132/uploads/${product.image}`}
                           alt={product.productname}
                           style={{ width: '100px' }}
                         />
