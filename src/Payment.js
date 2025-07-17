@@ -38,7 +38,7 @@ const Payment = () => {
   const fetchPaymentData = async (page = 1, email = "") => {
     setLoading(true);
     try {
-      const response = await axios.get("http://52.20.55.193:8132/api/pay/pays", {
+      const response = await axios.get("http://98.82.228.18:8132/api/pay/pays", {
         params: { page, limit: itemsPerPage, email },
       });
       const { data, totalPages: total } = response.data;
@@ -68,7 +68,7 @@ const Payment = () => {
   };
   const handleDeletePayment = async (id) => {
     try {
-      await axios.delete(`http://52.20.55.193:8132/api/pay/${id}`);
+      await axios.delete(`http://98.82.228.18:8132/api/pay/${id}`);
       setPaymentData(paymentData.filter((payment) => payment._id !== id));
       window.alert('Payment successfully deleted');
     } catch (error) {
@@ -78,7 +78,7 @@ const Payment = () => {
   const handleViewPayment = async (payment) => {
     console.log("Viewing Payment ID:", payment._id);
     try {
-      const response = await axios.get(`http://52.20.55.193:8132/api/pay/payment/${payment._id}`);
+      const response = await axios.get(`http://98.82.228.18:8132/api/pay/payment/${payment._id}`);
       if (response) {
         setViewPayment(response.data);
         setViewVisible(true);

@@ -48,7 +48,7 @@ const OrderStatusTrack = () => {
 
   const fetchOrderDetails = async () => {
     try {
-      const response = await axios.get('http://52.20.55.193:8132/api/OrderDetails/status/ACCEPT');
+      const response = await axios.get('http://98.82.228.18:8132/api/OrderDetails/status/ACCEPT');
       setOrderDetails(response.data);
       setLoading(false);
     } catch (error) {
@@ -74,7 +74,7 @@ const OrderStatusTrack = () => {
 
   const handleUpdateTrackStatus = async () => {
     try {
-      await axios.put(`http://52.20.55.193:8132/api/OrderStatusTrack/${selectedOrder._id}`, { trackStatus: newTrackStatus });
+      await axios.put(`http://98.82.228.18:8132/api/OrderStatusTrack/${selectedOrder._id}`, { trackStatus: newTrackStatus });
       setSelectedOrder({ ...selectedOrder, trackStatus: newTrackStatus });
       setOrderDetails((prevDetails) =>
         prevDetails.map((order) =>
@@ -89,7 +89,7 @@ const OrderStatusTrack = () => {
 
   const handleDeleteOrder = async (orderId) => {
     try {
-      await axios.delete(`http://52.20.55.193:8132/api/OrderDetails/${orderId}`);
+      await axios.delete(`http://98.82.228.18:8132/api/OrderDetails/${orderId}`);
       setOrderDetails(orderDetails.filter(order => order._id !== orderId));
     } catch (error) {
       console.error('Error deleting order:', error);
