@@ -59,7 +59,6 @@ const Reservation = () => {
         },
       });
 
-      console.log(response.data);
       if (response.data.success) {
         const { data, pagination } = response.data;
         setReservations(Array.isArray(data) ? data : []);
@@ -339,6 +338,8 @@ const Reservation = () => {
                 <CTableHead>
                   <CTableRow>
                     <CTableHeaderCell scope="col">Reservation Id</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">invoice No</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Customer</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Pickup</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Drop</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Pick Date</CTableHeaderCell>
@@ -362,6 +363,8 @@ const Reservation = () => {
                     return (
                       <CTableRow key={reservation._id}>
                         <CTableDataCell>{reservation._id}</CTableDataCell>
+                        <CTableDataCell>{reservation.invoiceNumber}</CTableDataCell>
+                        <CTableDataCell>{reservation.userName}</CTableDataCell>
                         <CTableDataCell>{reservation.pickup || 'N/A'}</CTableDataCell>
                         <CTableDataCell>{reservation.drop || 'N/A'}</CTableDataCell>
                         <CTableDataCell>

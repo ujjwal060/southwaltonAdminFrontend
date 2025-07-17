@@ -106,6 +106,7 @@ const Sign = () => {
                   <CTable hover bordered striped responsive>
                     <CTableHead>
                       <CTableRow>
+                      <CTableHeaderCell scope="col">Tracking No</CTableHeaderCell>
                       <CTableHeaderCell scope="col">User Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col">User Email</CTableHeaderCell>
                         <CTableHeaderCell scope="col">Agreement</CTableHeaderCell>
@@ -115,6 +116,7 @@ const Sign = () => {
                     <CTableBody>
                       {signatureData.map((signature) => (
                         <CTableRow key={signature._id}>
+                          <CTableDataCell>{signature.trackingNumber}</CTableDataCell>
                             <CTableDataCell>{signature.userDetails.fullName}</CTableDataCell>
                           <CTableDataCell>{signature.userDetails.email}</CTableDataCell>
                           <CTableDataCell>
