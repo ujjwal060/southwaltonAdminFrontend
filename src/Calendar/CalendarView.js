@@ -13,6 +13,7 @@ import {
 import { FaChevronLeft, FaChevronRight, FaCalendarAlt, FaFilter, FaCar } from 'react-icons/fa';
 import { MdToday, MdViewDay, MdViewWeek, MdViewAgenda } from 'react-icons/md';
 
+// calendar
 const CalendarView = () => {
   const [vehicles, setVehicles] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
