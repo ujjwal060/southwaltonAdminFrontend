@@ -8,10 +8,10 @@ const VerifyOTP = () => {
 
   const handleVerifyOTP = async () => {
     try {
-      const response = await axios.post('http://18.209.91.97:8132/api/auth/verify-otp', { email, otp });
+      const response = await axios.post('http://98.82.228.18:8132/api/auth/verify-otp', { email, otp });
       setMessage(response.data.message);
       if (response.status === 200) {
-        window.location.href = 'http://18.209.91.97:2023/reset-password'; // Redirect to reset password page
+        window.location.href = 'http://98.82.228.18:2023/reset-password'; // Redirect to reset password page
       }
     } catch (error) {
       setMessage("Failed to verify OTP");

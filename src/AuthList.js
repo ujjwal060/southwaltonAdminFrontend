@@ -11,7 +11,7 @@ const AuthList = () => {
 
   const fetchAuths = async () => {
     try {
-      const response = await axios.get('http://18.209.91.97:8132/api/auths/');
+      const response = await axios.get('http://98.82.228.18:8132/api/auths/');
       setAuths(response.data);
       console.log(response)
       setLoading(false);
@@ -26,7 +26,7 @@ const AuthList = () => {
 
   const handleAddAuth = async () => {
     try {
-      const response = await axios.post('http://18.209.91.97:8132/api/auths/website', { username, email, password });
+      const response = await axios.post('http://98.82.228.18:8132/api/auths/website', { username, email, password });
       setAuths([...auths, response.data]);
       setUsername('');
       setEmail('');
@@ -38,7 +38,7 @@ const AuthList = () => {
 
   const handleDeleteAuth = async (id) => {
     try {
-      await axios.delete(`http://18.209.91.97:8132/api/auths/${id}`);
+      await axios.delete(`http://98.82.228.18:8132/api/auths/${id}`);
       setAuths(auths.filter(auth => auth._id !== id));
     } catch (error) {
       console.error(error);

@@ -9,7 +9,7 @@ const ForgotPassword = () => {
 
   const handleForgotPassword = async () => {
     try {
-      const response = await axios.post('http://18.209.91.97:8132/api/auths/send-email', { email });
+      const response = await axios.post('http://98.82.228.18:8132/api/auths/send-email', { email });
       setMessage(response.data.message);
       if (response.status === 200) {
        // history.push('/reset-password');

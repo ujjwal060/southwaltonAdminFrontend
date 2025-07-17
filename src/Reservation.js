@@ -50,7 +50,7 @@ const Reservation = () => {
   const fetchReservations = async (page = 1, searchQuery = '') => {
     setLoading(true);
     try {
-      const response = await axios.get('http://18.209.91.97:8132/api/reserve/reservations', {
+      const response = await axios.get('http://98.82.228.18:8132/api/reserve/reservations', {
         params: {
           page,
           limit: itemsPerPage,
@@ -94,7 +94,7 @@ const Reservation = () => {
   // Handle delete reservation
   const handleDeleteReservation = async (id) => {
     try {
-      await axios.delete(`http://18.209.91.97:8132/api/reserve/reservation/${id}`); // Adjust the API URL
+      await axios.delete(`http://98.82.228.18:8132/api/reserve/reservation/${id}`); // Adjust the API URL
       setReservations(reservations.filter((reservation) => reservation._id !== id));
       window.alert('Reservation successfully deleted');
     } catch (error) {
@@ -106,7 +106,7 @@ const Reservation = () => {
   const handleReservationById = async (reservation) => {
     try {
       const response = await axios.get(
-        `http://18.209.91.97:8132/api/reserve/reservation/${reservation._id}`
+        `http://98.82.228.18:8132/api/reserve/reservation/${reservation._id}`
       );
 
       if (response) {
@@ -146,7 +146,7 @@ const Reservation = () => {
    */
   const getSeasonAndDays = async (days, pickdate, dropdate) => {
     try {
-      const response = await axios.get("http://18.209.91.97:8132/api/newVehicle/vehicleData", {
+      const response = await axios.get("http://98.82.228.18:8132/api/newVehicle/vehicleData", {
         params: {
           days,
           pickdate,
@@ -180,7 +180,7 @@ const Reservation = () => {
     }
     try {
       const response = await axios.put(
-        `http://18.209.91.97:8132/api/reserve/reservation/${reservationId}`,
+        `http://98.82.228.18:8132/api/reserve/reservation/${reservationId}`,
         {
           vehicleId,
           reserveAmount: totalPrice,
@@ -205,7 +205,7 @@ const Reservation = () => {
   // Handle accept reservation
   const handleAcceptReservation = async (id) => {
     try {
-      const response = await axios.put(`http://18.209.91.97:8132/api/reserve/reservation/${id}/accept`);
+      const response = await axios.put(`http://98.82.228.18:8132/api/reserve/reservation/${id}/accept`);
       alert(response.data.message); // Show success message
 
       // Update the state for the specific reservation
@@ -233,7 +233,7 @@ const Reservation = () => {
     };
 
     try {
-      const response = await axios.post('http://18.209.91.97:8132/api/reserve/reservation', reservationData);
+      const response = await axios.post('http://98.82.228.18:8132/api/reserve/reservation', reservationData);
 
       fetchReservations()
       resetForm();
