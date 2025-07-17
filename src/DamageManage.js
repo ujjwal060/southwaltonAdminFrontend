@@ -43,7 +43,7 @@ const DamageManage = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://52.20.55.193:8132/api/damage?page=${page}&limit=${limit}&search=${search}`
+        `http://98.82.228.18:8132/api/damage?page=${page}&limit=${limit}&search=${search}`
       );
       const { data, pagination } = response.data;
       setDamageManageData(data);
@@ -75,7 +75,7 @@ const DamageManage = () => {
 
   const handleDeleteDamageManage = async (id) => {
     try {
-      await axios.delete(`http://52.20.55.193:8132/api/damage/${id}`);
+      await axios.delete(`http://98.82.228.18:8132/api/damage/${id}`);
       setDamageManageData(damageManageData.filter((damage) => damage._id !== id));
       window.alert('Damage successfully deleted');
     } catch (error) {
@@ -93,7 +93,7 @@ const DamageManage = () => {
 
     try {
       // Send the payment ID in the URL as required by the backend
-      const response = await axios.post(`http://52.20.55.193:8132/api/damage/refund/${selectedDamage.paymentId}`);
+      const response = await axios.post(`http://98.82.228.18:8132/api/damage/refund/${selectedDamage.paymentId}`);
       if (response.data.success) {
         alert(`Refund processed successfully: ${response.data.message}`);
         setDamageManageData(damageManageData.map((damage) =>
@@ -115,7 +115,7 @@ const DamageManage = () => {
 
   const handleGeneratePDF = async (damageId) => {
     try {
-      const response = await axios.post('http://52.20.55.193:8132/api/damage/send-damage-report', { damageId }, { responseType: 'blob' });
+      const response = await axios.post('http://98.82.228.18:8132/api/damage/send-damage-report', { damageId }, { responseType: 'blob' });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -132,7 +132,7 @@ const DamageManage = () => {
   const handleViewDamage = async (damage) => {
     console.log("Viewing Damage ID:", damage._id);
     try {
-      const response = await axios.get(`http://52.20.55.193:8132/api/damage/${damage._id}`);
+      const response = await axios.get(`http://98.82.228.18:8132/api/damage/${damage._id}`);
       if (response.data.success) {
         setViewDamage(response.data.data);
         setViewVisible(true);
