@@ -45,6 +45,7 @@ const CalendarView = () => {
           vname: eventData.reservationDetails.vehicle?.vname || 'No Vehicle',
           tagNumber: eventData.reservationDetails.vehicle?.tagNumber || 'N/A',
           passenger: eventData.reservationDetails.vehicle?.passenger || 'N/A',
+          model: eventData.reservationDetails.vehicle?.model || 'N/A',
           status: eventData.status || 'confirmed',
           ...eventData,
         }));
@@ -77,28 +78,29 @@ const CalendarView = () => {
   }, [allEvents, selectedTags, searchTerm, statusFilter]);
 
   const applyFilters = () => {
-    let filtered = [...allEvents];
+  let filtered = [...allEvents];
 
-    if (selectedTags.length > 0) {
-      filtered = filtered.filter(event => selectedTags.includes(event.tagNumber));
-    }
+  if (selectedTags.length > 0) {
+    filtered = filtered.filter(event => selectedTags.includes(event.vname)); // Changed from tagNumber to vname
+  }
 
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(event =>
-        event.title.toLowerCase().includes(term) ||
-        event.email.toLowerCase().includes(term) ||
-        event.vname.toLowerCase().includes(term) ||
-        event.tagNumber.toLowerCase().includes(term)
-      );
-    }
+  // Rest of your filter logic remains same
+  if (searchTerm) {
+    const term = searchTerm.toLowerCase();
+    filtered = filtered.filter(event =>
+      event.title.toLowerCase().includes(term) ||
+      event.email.toLowerCase().includes(term) ||
+      event.vname.toLowerCase().includes(term) ||
+      event.tagNumber.toLowerCase().includes(term)
+    );
+  }
 
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter(event => event.status === statusFilter);
-    }
+  if (statusFilter !== 'all') {
+    filtered = filtered.filter(event => event.status === statusFilter);
+  }
 
-    setFilteredEvents(filtered);
-  };
+  setFilteredEvents(filtered);
+};
 
   const handleTagToggle = (tagNumber) => {
     setSelectedTags(prev =>
@@ -418,6 +420,9 @@ const CalendarView = () => {
                     <div style={{ fontWeight: '500' }}>
                       {event.vname} ({event.tagNumber})
                     </div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--cui-secondary-color)' }}>
+                      {event.model} • {event.passenger.replace(/([A-Z])/g, ' $1').trim()}
+                    </div>
                   </div>
 
                   <div>
@@ -690,7 +695,7 @@ const CalendarView = () => {
         backgroundColor: 'var(--cui-body-bg)'
       }}>
         <div style={{
-          padding: '24px', 
+          padding: '24px',
           backgroundColor: 'var(--cui-body-bg)',
           borderRadius: '8px',
           boxShadow: 'var(--cui-box-shadow)',
@@ -1006,7 +1011,7 @@ const CalendarView = () => {
                   fontWeight: '500',
                   color: 'var(--cui-secondary-color)'
                 }}>
-                  Vehicle Tag Numbers
+                  Vehicle Models
                 </label>
                 <div style={{
                   display: 'flex',
@@ -1055,42 +1060,40 @@ const CalendarView = () => {
                       key={index}
                       style={{
                         padding: '8px 12px',
-                        background: selectedTags.includes(vehicle.tagNumber) ? 'var(--cui-info-light)' : 'var(--cui-secondary-bg)',
+                        background: selectedTags.includes(vehicle.vname) ? 'var(--cui-info-light)' : 'var(--cui-secondary-bg)',
                         borderRadius: '6px',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
                         transition: 'all 0.2s ease',
-                        border: selectedTags.includes(vehicle.tagNumber) ? `1px solid var(--cui-primary)` : `1px solid var(--cui-border-color)`,
+                        border: selectedTags.includes(vehicle.vname) ? `1px solid var(--cui-primary)` : `1px solid var(--cui-border-color)`,
                         ':hover': {
                           backgroundColor: 'var(--cui-hover-bg)'
                         }
                       }}
-                      onClick={() => handleTagToggle(vehicle.tagNumber)}
+                      onClick={() => handleTagToggle(vehicle.vname)}
                     >
                       <div style={{
                         width: '16px',
                         height: '16px',
                         borderRadius: '4px',
-                        border: selectedTags.includes(vehicle.tagNumber) ? 'none' : `1px solid var(--cui-border-color)`,
-                        backgroundColor: selectedTags.includes(vehicle.tagNumber) ? 'var(--cui-primary)' : 'transparent',
+                        border: selectedTags.includes(vehicle.vname) ? 'none' : `1px solid var(--cui-border-color)`,
+                        backgroundColor: selectedTags.includes(vehicle.vname) ? 'var(--cui-primary)' : 'transparent',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: 'var(--cui-white)',
                         fontSize: '12px'
                       }}>
-                        {selectedTags.includes(vehicle.tagNumber) && '✓'}
+                        {selectedTags.includes(vehicle.vname) && '✓'}
                       </div>
-                      <span>{vehicle.tagNumber}</span>
-                      <span style={{
-                        marginLeft: 'auto',
-                        fontSize: '0.8rem',
-                        color: 'var(--cui-secondary-color)'
-                      }}>
-                        {vehicle.vname}
-                      </span>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span>{vehicle.vname}</span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--cui-secondary-color)' }}>
+                          {vehicle.model} • {vehicle.passenger.replace(/([A-Z])/g, ' $1').trim()}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1269,6 +1272,7 @@ const CalendarView = () => {
                     {selectedEvent.tagNumber || 'N/A'}
                   </div>
                 </CCol>
+                
                 <CCol sm={6} className="mb-3">
                   <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Passenger Capacity</CFormLabel>
                   <div style={{
@@ -1313,7 +1317,7 @@ const CalendarView = () => {
           >
             Close
           </CButton>
-          
+
         </CModalFooter>
       </CModal>
     </div>
