@@ -1262,14 +1262,14 @@ const CalendarView = () => {
                   </div>
                 </CCol>
                 <CCol sm={6} className="mb-3">
-                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Tag Number</CFormLabel>
+                  <CFormLabel style={{ fontWeight: '500', color: 'var(--cui-secondary-color)' }}>Model</CFormLabel>
                   <div style={{
                     padding: '8px 12px',
                     backgroundColor: 'var(--cui-secondary-bg)',
                     borderRadius: '6px',
                     borderLeft: `3px solid var(--cui-primary)`
                   }}>
-                    {selectedEvent.tagNumber || 'N/A'}
+                    {selectedEvent.model || 'N/A'}
                   </div>
                 </CCol>
                 
