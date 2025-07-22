@@ -52,7 +52,7 @@ const VehicleManageList = () => {
 
   const fetchVehicleData = async () => {
     try {
-      const response = await axios.get(`http://98.82.228.18:8132/api/vehicle`, {
+      const response = await axios.get(`http://98.85.246.54:8132/api/vehicle`, {
         params: { page, limit, search },
       });
 
@@ -83,7 +83,7 @@ const VehicleManageList = () => {
     }
 
     try {
-      const response = await axios.post('http://98.82.228.18:8132/api/vehicle/add', formData, {
+      const response = await axios.post('http://98.85.246.54:8132/api/vehicle/add', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -126,7 +126,7 @@ const VehicleManageList = () => {
     }
 
     try {
-      const response = await axios.put(`http://98.82.228.18:8132/api/vehicle/${currentVehicleId}`, formData, {
+      const response = await axios.put(`http://98.85.246.54:8132/api/vehicle/${currentVehicleId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -149,7 +149,7 @@ const VehicleManageList = () => {
 
   const handleDeleteVehicle = async (id) => {
     try {
-      await axios.delete(`http://98.82.228.18:8132/api/vehicle/${id}`);
+      await axios.delete(`http://98.85.246.54:8132/api/vehicle/${id}`);
       setVehicleData(vehicleData.filter((vehicle) => vehicle._id !== id));
       window.alert('Vehicle successfully deleted');
     } catch (error) {
