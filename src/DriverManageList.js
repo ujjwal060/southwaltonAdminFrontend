@@ -57,7 +57,7 @@ const DriverManageList = () => {
 
   const fetchDriverBookings = async (driverId) => {
     try {
-      const response = await axios.get(`http://98.85.246.54:8132/api/driver/${driverId}/bookings`);
+      const response = await axios.get(`http://54.205.149.77:8132/api/driver/${driverId}/bookings`);
       setBookingDetails(response.data.driver.bookings);  // Set the booking data
       console.log('Fetched bookings:', response.data.driver.bookings); // For debugging
     } catch (error) {
@@ -83,7 +83,7 @@ const DriverManageList = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://98.85.246.54:8132/api/driver?page=${currentPage}&limit=${limit}&search=${searchName}`
+        `http://54.205.149.77:8132/api/driver?page=${currentPage}&limit=${limit}&search=${searchName}`
       );
       setDriverManageData(response.data.drivers);
       setTotalPages(response.data.totalPages);
@@ -114,7 +114,7 @@ const DriverManageList = () => {
 
     try {
       const response = await axios.post(
-        'http://98.85.246.54:8132/api/driver/add',
+        'http://54.205.149.77:8132/api/driver/add',
         formData,
         {
           headers: {
@@ -160,7 +160,7 @@ const DriverManageList = () => {
 
     try {
       const response = await axios.put(
-        `http://98.85.246.54:8132/api/driver/${currentDriverId}`,
+        `http://54.205.149.77:8132/api/driver/${currentDriverId}`,
         formData,
         {
           headers: {
@@ -185,7 +185,7 @@ const DriverManageList = () => {
 
   const handleDeleteDriverManage = async (id) => {
     try {
-      await axios.delete(`http://98.85.246.54:8132/api/driver/${id}`);
+      await axios.delete(`http://54.205.149.77:8132/api/driver/${id}`);
       setDriverManageData(driverManageData.filter((driver) => driver._id !== id));
       window.alert('Driver successfully deleted');
     } catch (error) {

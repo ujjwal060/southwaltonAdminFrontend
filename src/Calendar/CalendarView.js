@@ -32,7 +32,7 @@ const CalendarView = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://98.85.246.54:8132/api/book/calendar');
+      const response = await axios.get('http://54.205.149.77:8132/api/book/calendar');
       if (response.data) {
         const events = response.data.data.map(eventData => ({
           id: eventData.paymentId,
@@ -61,7 +61,7 @@ const CalendarView = () => {
 
   const fetchVehicles = async () => {
     try {
-      const response = await axios.get('http://98.85.246.54:8132/api/newVehicle');
+      const response = await axios.get('http://54.205.149.77:8132/api/newVehicle');
       setVehicles(response.data.vehicles || []);
     } catch (error) {
       console.error('Error fetching vehicles:', error);
