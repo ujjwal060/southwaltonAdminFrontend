@@ -54,7 +54,7 @@ const BookManageList = () => {
   const fetchBookings = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://98.85.246.54:8132/api/book', {
+      const response = await axios.get('http://54.205.149.77:8132/api/book', {
         params: {
           search: searchTerm,
           page,
@@ -89,7 +89,7 @@ const BookManageList = () => {
 
   const fetchAvailableDrivers = async () => {
     try {
-      const response = await axios.get('http://98.85.246.54:8132/api/driver/'); // Update API endpoint if necessary
+      const response = await axios.get('http://54.205.149.77:8132/api/driver/'); // Update API endpoint if necessary
       setAvailableDrivers(response.data.drivers); // Adjust if your response structure is different
     } catch (error) {
       console.error("Error fetching drivers:", error.message);
@@ -107,7 +107,7 @@ const BookManageList = () => {
 
   const deleteBooking = async (id) => {
     try {
-      await axios.delete(`http://98.85.246.54:8132/api/book/${id}`);
+      await axios.delete(`http://54.205.149.77:8132/api/book/${id}`);
       setBookings(bookings.filter(booking => booking._id !== id));
       fetchPanelBookings();
     } catch (error) {
@@ -135,7 +135,7 @@ const BookManageList = () => {
 
     console.log("Assigning driver with data:", requestData);
     try {
-      const response = await axios.post('http://98.85.246.54:8132/api/driver/assignDriver', requestData);
+      const response = await axios.post('http://54.205.149.77:8132/api/driver/assignDriver', requestData);
       window.alert('Driver assigned successfully!')
       console.log("Response from server:", response.data);
       setAssignDriverModalVisible(false);
@@ -168,7 +168,7 @@ const BookManageList = () => {
 
     console.log("Assigning driver with data:", requestData);
     try {
-      const response = await axios.post('http://98.85.246.54:8132/api/driver/assignDriver', requestData);
+      const response = await axios.post('http://54.205.149.77:8132/api/driver/assignDriver', requestData);
       window.alert('Driver assigned successfully!')
       console.log("Response from server:", response.data);
       setNewAssignDriverModalVisible(false);
@@ -239,10 +239,10 @@ const BookManageList = () => {
     });
 
     try {
-      const response = await axios.post('http://98.85.246.54:8132/api/book/create', formData);
+      const response = await axios.post('http://54.205.149.77:8132/api/book/create', formData);
       console.log('Booking added:', response.data);
 
-      const updateResponse = await axios.put(`http://98.85.246.54:8132/api/reserve/reservation/${reservationId}`, {
+      const updateResponse = await axios.put(`http://54.205.149.77:8132/api/reserve/reservation/${reservationId}`, {
         booking: true
       });
       console.log('Reservation updated:', updateResponse.data);
@@ -274,7 +274,7 @@ const BookManageList = () => {
   const fetchPanelBookings = async () => {
     setPanelLoading(true);
     try {
-      const response = await fetch(`http://98.85.246.54:8132/api/book/bookfromPanel?page=${panelPage}&limit=${panelLimit}&search=${searchQuery}`);
+      const response = await fetch(`http://54.205.149.77:8132/api/book/bookfromPanel?page=${panelPage}&limit=${panelLimit}&search=${searchQuery}`);
       const data = await response.json();
       setPanelBookings(data.bookings);
       setTotalPanelPages(data.totalPages);
@@ -301,7 +301,7 @@ const BookManageList = () => {
 
   const fetchReservations = async () => {
     try {
-      const response = await fetch('http://98.85.246.54:8132/api/reserve/reservations/fromPanel'); // Replace with your API URL
+      const response = await fetch('http://54.205.149.77:8132/api/reserve/reservations/fromPanel'); // Replace with your API URL
       const data = await response.json();
       setReservations(data); // Set reservations to state
     } catch (error) {
@@ -326,7 +326,7 @@ const BookManageList = () => {
   const sendPaymentMail = async (booking) => {
     setLoadingBookingId(booking._id);
     try {
-      const response = await fetch('http://98.85.246.54:8132/api/send-rental-agreement', {
+      const response = await fetch('http://54.205.149.77:8132/api/send-rental-agreement', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
