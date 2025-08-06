@@ -337,7 +337,7 @@ const Reservation = () => {
               <CTable hover bordered striped responsive>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell scope="col">Reservation Id</CTableHeaderCell>
+                   
                     <CTableHeaderCell scope="col">invoice No</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Customer</CTableHeaderCell>
                     <CTableHeaderCell scope="col">Pickup</CTableHeaderCell>
@@ -362,7 +362,7 @@ const Reservation = () => {
                         : [];
                     return (
                       <CTableRow key={reservation._id}>
-                        <CTableDataCell>{reservation._id}</CTableDataCell>
+                        {/* <CTableDataCell>{reservation._id}</CTableDataCell> */}
                         <CTableDataCell>{reservation.invoiceNumber}</CTableDataCell>
                         <CTableDataCell>{reservation.userName}</CTableDataCell>
                         <CTableDataCell>{reservation.pickup || 'N/A'}</CTableDataCell>
