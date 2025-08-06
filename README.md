@@ -81,18 +81,18 @@ $ yarn install
 ### Basic usage
 
 ``` bash
-# dev server with hot reload at http://54.205.149.77:2023
+# dev server with hot reload at http://44.217.145.210:2023
 $ npm start 
 ```
 
 or 
 
 ``` bash
-# dev server with hot reload at http://54.205.149.77:2023
+# dev server with hot reload at http://44.217.145.210:2023
 $ yarn start
 ```
 
-Navigate to [http://54.205.149.77:2023](http://54.205.149.77:2023). The app will automatically reload if you change any of the source files.
+Navigate to [http://44.217.145.210:2023](http://44.217.145.210:2023). The app will automatically reload if you change any of the source files.
 
 #### Build
 

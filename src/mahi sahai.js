@@ -26,7 +26,7 @@ const Season = () => {
 
   const fetchSeasons = async () => {
     try {
-      const response = await axios.get('http://54.205.149.77:8132/api/seasons');
+      const response = await axios.get('http://44.217.145.210:8132/api/seasons');
       const data = response.data;
       setSeasonData({
         offSeason: data[0]?.offSeason || [],
@@ -43,9 +43,9 @@ const Season = () => {
 
     try {
       if (editMode) {
-        await axios.put(`http://54.205.149.77:8132/api/seasons/${editEntryId}`, seasonEntry);
+        await axios.put(`http://44.217.145.210:8132/api/seasons/${editEntryId}`, seasonEntry);
       } else {
-        await axios.post('http://54.205.149.77:8132/api/seasons/add', seasonEntry);
+        await axios.post('http://44.217.145.210:8132/api/seasons/add', seasonEntry);
       }
       fetchSeasons();
       setModalVisible(false);
@@ -71,7 +71,7 @@ const Season = () => {
 
   const handleDeleteSeason = async (id) => {
     try {
-      await axios.delete(`http://54.205.149.77:8132/api/seasons/${id}`);
+      await axios.delete(`http://44.217.145.210:8132/api/seasons/${id}`);
       fetchSeasons();
     } catch (error) {
       console.error('Error deleting season:', error);
