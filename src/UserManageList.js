@@ -58,7 +58,7 @@ const UserManageList = () => {
   const fetchUserManageData = async (page = 1, query = '') => {
     setLoading(true);
     try {
-      const response = await axios.get('http://54.205.149.77:8132/api/user/', {
+      const response = await axios.get('http://44.217.145.210:8132/api/user/', {
         params: {
           page,
           limit: 8, // Adjust limit as needed
@@ -99,7 +99,7 @@ const UserManageList = () => {
     formData.append('status', status);
 
     try {
-      const response = await axios.post('http://54.205.149.77:8132/api/user/register', formData, {
+      const response = await axios.post('http://44.217.145.210:8132/api/user/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -125,7 +125,7 @@ const UserManageList = () => {
     formData.append('status', status);
 
     try {
-      const response = await axios.put(`http://54.205.149.77:8132/api/user/${editUserId}`, formData, {
+      const response = await axios.put(`http://44.217.145.210:8132/api/user/${editUserId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -150,7 +150,7 @@ const UserManageList = () => {
   // Delete user
   const handleDeleteUserManage = async (id) => {
     try {
-      await axios.delete(`http://54.205.149.77:8132/api/user/${id}`);
+      await axios.delete(`http://44.217.145.210:8132/api/user/${id}`);
       setUserManageData(userManageData.filter(user => user._id !== id));
       window.alert('User successfully deleted');
     } catch (error) {
@@ -179,7 +179,7 @@ const UserManageList = () => {
     const data = { id, status: newStatus };
 
     try {
-      const response = await axios.post('http://54.205.149.77:8132/api/user/status', data);
+      const response = await axios.post('http://44.217.145.210:8132/api/user/status', data);
       console.log("Status update response:", response.data);
 
       if (response.data && response.data.success) {
