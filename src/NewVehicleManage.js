@@ -332,7 +332,7 @@ const NewVehicleManage = () => {
                 />
               </CCol>
               <CCol md={6}>
-                <CFormLabel>2-4 Days Pricing File</CFormLabel>
+                <CFormLabel>2-5 Days Pricing File</CFormLabel>
                 <CFormInput
                   type="file"
                   name="twoToFourDaysPricingFile"
@@ -344,7 +344,7 @@ const NewVehicleManage = () => {
             {/* More Pricing Files */}
             <CRow className="mb-3">
               <CCol md={6}>
-                <CFormLabel>5-7 Days Pricing File</CFormLabel>
+                <CFormLabel>6-7 Days Pricing File</CFormLabel>
                 <CFormInput
                   type="file"
                   name="fiveToSevenDaysPricingFile"
@@ -352,7 +352,7 @@ const NewVehicleManage = () => {
                 />
               </CCol>
               <CCol md={6}>
-                <CFormLabel>8-27 Days Pricing File</CFormLabel>
+                <CFormLabel>8-14 Days Pricing File</CFormLabel>
                 <CFormInput
                   type="file"
                   name="eightToTwentySevenDaysPricingFile"
@@ -361,7 +361,7 @@ const NewVehicleManage = () => {
               </CCol>
             </CRow>
 
-            <CRow className="mb-3">
+            {/* <CRow className="mb-3">
               <CCol md={6}>
                 <CFormLabel>28+ Days Pricing File</CFormLabel>
                 <CFormInput
@@ -370,7 +370,7 @@ const NewVehicleManage = () => {
                   onChange={(e) => handleFileChange(e, 'twentyEightPlusPricingFile')}
                 />
               </CCol>
-            </CRow>
+            </CRow> */}
           </CForm>
         </CModalBody>
         <CModalFooter>
