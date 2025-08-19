@@ -208,20 +208,20 @@ const NewVehicleManage = () => {
                               </CDropdownItem>
                               <CDropdownItem href={vehicle.twoToFourDaysPricingFile} target="_blank">
                                 <FontAwesomeIcon icon={faDownload} className="me-2" />
-                                2-4 Days Pricing
+                                2-5 Days Pricing
                               </CDropdownItem>
                               <CDropdownItem href={vehicle.fiveToSevenDaysPricingFile} target="_blank">
                                 <FontAwesomeIcon icon={faDownload} className="me-2" />
-                                5-7 Days Pricing
+                                6-7 Days Pricing
                               </CDropdownItem>
                               <CDropdownItem href={vehicle.eightToTwentySevenDaysPricingFile} target="_blank">
                                 <FontAwesomeIcon icon={faDownload} className="me-2" />
-                                8-27 Days Pricing
+                                8-14 Days Pricing
                               </CDropdownItem>
-                              <CDropdownItem href={vehicle.twentyEightPlusPricingFile} target="_blank">
+                              {/* <CDropdownItem href={vehicle.twentyEightPlusPricingFile} target="_blank">
                                 <FontAwesomeIcon icon={faDownload} className="me-2" />
                                 28+ Days Pricing
-                              </CDropdownItem>
+                              </CDropdownItem> */}
                             </CDropdownMenu>
                           </CDropdown>
                         </CTableDataCell>
